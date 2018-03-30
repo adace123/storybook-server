@@ -12,7 +12,7 @@ type ModelDAO interface {
 
 // Author model
 type Author struct {
-	ID       bson.ObjectId `bson:"_id" json:"_id"`
+	ID       bson.ObjectId `bson:"_id" json:"id"`
 	Email    string        `bson:"email" json:"email"`
 	Password string        `bson:"password" json:"password"`
 	ImageURL string        `bson:"imageURL" json:"imageURL"`
@@ -21,7 +21,7 @@ type Author struct {
 
 // Story model
 type Story struct {
-	ID            bson.ObjectId `bson:"_id" json:"_id"`
+	ID            bson.ObjectId `bson:"_id" json:"id"`
 	Title         string        `bson:"title" json:"title"`
 	Content       string        `bson:"content" json:"content"`
 	AllowComments bool          `bson:"allowComments" json:"allowComments"`
@@ -31,7 +31,7 @@ type Story struct {
 
 // Comment model
 type Comment struct {
-	ID      bson.ObjectId `bson:"_id" json:"_id"`
+	ID      bson.ObjectId `bson:"_id" json:"id"`
 	Content string        `bson:"content" json:"content"`
 	Story   bson.ObjectId `bson:"story" json:"story"`
 	Author  bson.ObjectId `bson:"author" json:"author"`

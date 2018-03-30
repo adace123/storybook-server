@@ -26,12 +26,12 @@ type Author struct {
 
 // Story model
 type Story struct {
-	ID            bson.ObjectId     `bson:"_id" json:"_id"`
-	Title         string            `bson:"title" json:"title"`
-	Content       string            `bson:"content" json:"content"`
-	AllowComments bool              `bson:"allowComments" json:"allowComments"`
-	Author        Author            `bson:"author" json:"author"`
-	Visibility    map[string]string `bson:"visibility" json:"visibility"`
+	ID            bson.ObjectId `bson:"_id" json:"_id"`
+	Title         string        `bson:"title" json:"title"`
+	Content       string        `bson:"content" json:"content"`
+	AllowComments bool          `bson:"allowComments" json:"allowComments"`
+	Author        Author        `bson:"author" json:"author"`
+	Visibility    Visibility    `bson:"visibility" json:"visibility"`
 }
 
 // Comment model

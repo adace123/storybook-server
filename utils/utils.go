@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 )
 
 func init() {
@@ -44,4 +45,8 @@ func GetConfigFile() Config {
 	err = decoder.Decode(&config)
 	HandleErr(err, "Could not convert config file to JSON")
 	return config
+}
+
+func validEmail(email string) bool {
+	return regexp.MustCompile("^((\\w+[\\.]?)+)@(\\w+\\.){1,}\\w{2,9}$").MatchString(email)
 }

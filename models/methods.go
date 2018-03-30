@@ -1,9 +1,8 @@
 package models
 
 import (
-	"errors"
-
 	"../utils"
+	"errors"
 	"golang.org/x/crypto/bcrypt"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -46,6 +45,13 @@ func (commentsDAO CommentsDAO) FindAll() (interface{}, error) {
 	commentDB := DB.C(commentsDAO.Collection)
 	err := commentDB.Find(nil).All(&comments)
 	return comments, err
+}
+
+func (authorsDAO AuthorsDAO) FindByEmail(email string) (interface{}, error) {
+	var author Author
+	authorDB := DB.C(authorsDAO.Collection)
+	err := authorDB.Find(bson.M{"email": email}).One(&author)
+	return author, err
 }
 
 // FindByID - returns single author
@@ -106,13 +112,15 @@ func (storiesDAO StoriesDAO) FindStoriesByAuthor(authorID bson.ObjectId) (interf
 
 // CreateAuthor - create new author
 func (authorsDAO AuthorsDAO) CreateAuthor(author *Author) (interface{}, error) {
-	_, err := authorsDAO.FindByID(author.ID)
-	if err == nil {
+	_, err := authorsDAO.FindByEmail(author.Email)
+	if err != nil {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(author.Password), bcrypt.DefaultCost)
 		utils.HandleErr(err, "Could not generate password")
 		(*author).Password = string(hashedPassword)
-		DB.C(authorsDAO.Collection).Insert(&author)
-		return authorsDAO.FindByID(author.ID)
+		(*author).ID = bson.NewObjectId()
+		e := DB.C(authorsDAO.Collection).Insert(&author)
+		utils.HandleErr(e, "Could not insert author")
+		return authorsDAO.FindByEmail(author.Email)
 	}
 	return Author{}, errors.New("Author already exists")
 }

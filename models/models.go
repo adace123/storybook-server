@@ -1,13 +1,13 @@
 package models
 
 import (
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 // ModelDAO interface
 type ModelDAO interface {
-	FindAll(db *mgo.Database) (interface{}, error)
+	FindAll() (interface{}, error)
+	FindByID(id bson.ObjectId) (interface{}, error)
 }
 
 // Author model

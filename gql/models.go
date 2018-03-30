@@ -82,17 +82,17 @@ var CommentType = graphql.NewObject(
 
 var StoryInput = graphql.NewInputObject(graphql.InputObjectConfig{
 	Name: "StoryInput",
-	Fields: graphql.Fields{
-		"title": &graphql.Field{
+	Fields: graphql.InputObjectConfigFieldMap{
+		"title": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
-		"content": &graphql.Field{
+		"content": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
-		"allowComments": &graphql.Field{
+		"allowComments": &graphql.InputObjectFieldConfig{
 			Type: graphql.Boolean,
 		},
-		"visibility": &graphql.Field{
+		"visibility": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
 	},
@@ -101,17 +101,17 @@ var StoryInput = graphql.NewInputObject(graphql.InputObjectConfig{
 // AuthorInput - author input object
 var AuthorInput = graphql.NewInputObject(graphql.InputObjectConfig{
 	Name: "AuthorInput",
-	Fields: graphql.Fields{
-		"name": &graphql.Field{
+	Fields: graphql.InputObjectConfigFieldMap{
+		"name": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
-		"email": &graphql.Field{
+		"email": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
-		"password": &graphql.Field{
+		"password": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
-		"imageURL": &graphql.Field{
+		"imageURL": &graphql.InputObjectFieldConfig{
 			Type: graphql.String,
 		},
 	},

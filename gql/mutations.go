@@ -25,8 +25,7 @@ var MutationType = graphql.NewObject(
 						Password: authorFields["password"].(string),
 						ImageURL: authorFields["imageURL"].(string),
 					}
-					newAuthor, err := authorsDAO.CreateAuthor(&author)
-					return newAuthor, err
+					return authorsDAO.CreateAuthor(&author)
 				},
 			},
 		},

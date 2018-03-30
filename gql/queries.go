@@ -5,6 +5,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// QueryType - main GraphQL query
 var QueryType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Query",

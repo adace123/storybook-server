@@ -79,3 +79,40 @@ var CommentType = graphql.NewObject(
 		},
 	},
 )
+
+var StoryInput = graphql.NewInputObject(graphql.InputObjectConfig{
+	Name: "StoryInput",
+	Fields: graphql.Fields{
+		"title": &graphql.Field{
+			Type: graphql.String,
+		},
+		"content": &graphql.Field{
+			Type: graphql.String,
+		},
+		"allowComments": &graphql.Field{
+			Type: graphql.Boolean,
+		},
+		"visibility": &graphql.Field{
+			Type: graphql.String,
+		},
+	},
+})
+
+// AuthorInput - author input object
+var AuthorInput = graphql.NewInputObject(graphql.InputObjectConfig{
+	Name: "AuthorInput",
+	Fields: graphql.Fields{
+		"name": &graphql.Field{
+			Type: graphql.String,
+		},
+		"email": &graphql.Field{
+			Type: graphql.String,
+		},
+		"password": &graphql.Field{
+			Type: graphql.String,
+		},
+		"imageURL": &graphql.Field{
+			Type: graphql.String,
+		},
+	},
+})

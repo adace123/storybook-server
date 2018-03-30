@@ -28,7 +28,7 @@ func init() {
 		},
 	})
 
-	schemaConfig := graphql.SchemaConfig{Query: QueryType}
+	schemaConfig := graphql.SchemaConfig{Query: QueryType, Mutation: MutationType}
 	Schema, err := graphql.NewSchema(schemaConfig)
 	if err != nil {
 		log.Fatalf("Could not create schema: %v", err)

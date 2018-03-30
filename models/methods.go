@@ -1,7 +1,10 @@
 package models
 
 import (
+	"errors"
+
 	"../utils"
+	"golang.org/x/crypto/bcrypt"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -99,4 +102,17 @@ func (storiesDAO StoriesDAO) FindStoriesByAuthor(authorID bson.ObjectId) (interf
 	storyDB := DB.C(storiesDAO.Collection)
 	err := storyDB.Find(bson.M{"author": authorID}).Sort("-timestamp").All(&stories)
 	return stories, err
+}
+
+// CreateAuthor - create new author
+func (authorsDAO AuthorsDAO) CreateAuthor(author *Author) (interface{}, error) {
+	_, err := authorsDAO.FindByID(author.ID)
+	if err == nil {
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(author.Password), bcrypt.DefaultCost)
+		utils.HandleErr(err, "Could not generate password")
+		(*author).Password = string(hashedPassword)
+		DB.C(authorsDAO.Collection).Insert(&author)
+		return authorsDAO.FindByID(author.ID)
+	}
+	return Author{}, errors.New("Author already exists")
 }

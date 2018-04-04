@@ -1,15 +1,15 @@
 package utils
 
 import (
-	"encoding/json"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
-	"os"
 )
 
 func init() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-
+	err := godotenv.Load()
+	HandleErr(err, "Couldn't load env file ")
 }
 
 // Config represents config.json
@@ -29,12 +29,12 @@ func ConfigResponse(w *http.ResponseWriter) {
 	(*w).Header().Set("Content-Type", "application/json")
 }
 
-func GetConfigFile() Config {
-	file, err := os.Open("config.json")
-	HandleErr(err, "Could not open config file")
-	decoder := json.NewDecoder(file)
-	var config Config
-	err = decoder.Decode(&config)
-	HandleErr(err, "Could not convert config file to JSON")
-	return config
-}
+// func GetConfigFile() Config {
+// 	file, err := os.Open("config.json")
+// 	HandleErr(err, "Could not open config file")
+// 	decoder := json.NewDecoder(file)
+// 	var config Config
+// 	err = decoder.Decode(&config)
+// 	HandleErr(err, "Could not convert config file to JSON")
+// 	return config
+// }

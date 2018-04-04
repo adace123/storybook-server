@@ -6,14 +6,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"os"
 )
 
 // DB - mLab connector
 var DB *mgo.Database
 
 func connect() {
-	config := utils.GetConfigFile()
-	session, err := mgo.Dial(config.MongoURL)
+	// config := utils.GetConfigFile()
+	session, err := mgo.Dial(os.Getenv("MONGO_URL"))
 	utils.HandleErr(err, "Could not connect to DB")
 	DB = session.DB("storybooks")
 }
@@ -111,7 +112,7 @@ func (storiesDAO StoriesDAO) FindStoriesByAuthor(authorID bson.ObjectId) (interf
 }
 
 // CreateAuthor - create new author
-func (authorsDAO AuthorsDAO) CreateAuthor(author *Author) (interface{}, error) {
+func (authorsDAO AuthorsDAO) SignUp(author *Author) (interface{}, error) {
 	_, err := authorsDAO.FindByEmail(author.Email)
 	if err != nil {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(author.Password), bcrypt.DefaultCost)

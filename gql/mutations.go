@@ -10,7 +10,7 @@ var MutationType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Mutation",
 		Fields: graphql.Fields{
-			"createAuthor": &graphql.Field{
+			"signUp": &graphql.Field{
 				Type: AuthorType,
 				Args: graphql.FieldConfigArgument{
 					"author": &graphql.ArgumentConfig{
@@ -25,7 +25,7 @@ var MutationType = graphql.NewObject(
 						Password: authorFields["password"].(string),
 						ImageURL: authorFields["imageURL"].(string),
 					}
-					return authorsDAO.CreateAuthor(&author)
+					return authorsDAO.SignUp(&author)
 				},
 			},
 		},
